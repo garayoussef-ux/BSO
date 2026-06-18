@@ -3,6 +3,11 @@
   <ItemGroup>
     <ProjectReference Include="..\BSO.Application\BSO.Application.csproj" />
     <ProjectReference Include="..\BSO.Infrastructure\BSO.Infrastructure.csproj" />
+    <ProjectReference Include="..\BSO.Domain\BSO.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>
 
   <PropertyGroup>

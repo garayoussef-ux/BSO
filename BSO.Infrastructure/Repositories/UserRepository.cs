@@ -1,22 +1,29 @@
-using Dapper;
 using BSO.Domain;
-using BSO.Infrastructure.Data;
-
+using BSO.Infrastructure.Models;
+using BSO.Infrastructure.Services;
 namespace BSO.Infrastructure.Repositories;
-
 public class UserRepository
 {
-    private readonly DbConnectionFactory _factory;
+    private readonly SupabaseService _supabase;
 
-    public UserRepository(DbConnectionFactory factory)
+    public UserRepository(SupabaseService supabase)
     {
-        _factory = factory;
+        _supabase = supabase;
     }
 
-    public async Task<IEnumerable<User>> GetAllAsync()
+    public async Task<List<User>> GetAllAsync()
     {
-        using var connection = _factory.CreateConnection();
-        var sql = "SELECT id, email FROM users";
-        return await connection.QueryAsync<User>(sql);
+        var client = _supabase.GetClient();
+
+        var result = await client
+            .From<SupabaseUser>()
+            .Get();
+
+        // ✅ map to domain model
+        return result.Models.Select(x => new User
+        {
+            Id = x.Id,
+            Email = x.Email
+        }).ToList();
     }
 }
