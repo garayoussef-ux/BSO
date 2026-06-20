@@ -1,11 +1,17 @@
 ﻿@page
 @model IndexModel
 
-<h1>Users</h1>
+<div class="text-center">
+    <h1 class="mb-4">Welcome to BSO</h1>
 
-<ul>
-@foreach (var user in Model.Users)
-{
-    <li>@user.Email</li>
-}
-</ul>
+    <div class="alert alert-info">
+        @if (Model.Email != null)
+        {
+            <p>✅ Logged in as <strong>@Model.Email</strong></p>
+        }
+        else
+        {
+            <p>❌ You are not logged in</p>
+        }
+    </div>
+</div>

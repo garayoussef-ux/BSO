@@ -1,20 +1,19 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using BSO.Infrastructure.Repositories;
-using BSO.Domain;
+using BSO.Infrastructure.Services;
 
 public class IndexModel : PageModel
 {
-    private readonly UserRepository _repo;
+    private readonly SupabaseService _supabase;
 
-    public IEnumerable<User> Users { get; set; } = new List<User>();
+    public string? Email { get; set; }
 
-    public IndexModel(UserRepository repo)
+    public IndexModel(SupabaseService supabase)
     {
-        _repo = repo;
+        _supabase = supabase;
     }
 
-    public async Task OnGetAsync()
+    public void OnGet()
     {
-        Users = await _repo.GetAllAsync();
+        Email = _supabase.GetUserEmail();
     }
 }

@@ -20,4 +20,25 @@ public class SupabaseService
     {
         return _client;
     }
+    public async Task<bool> SignUp(string email, string password)
+{
+    var response = await _client.Auth.SignUp(email, password);
+    return response?.User != null;
+}
+
+public async Task<bool> SignIn(string email, string password)
+{
+    var response = await _client.Auth.SignIn(email, password);
+    return response?.User != null;
+}
+
+public string? GetUserEmail()
+{
+    return _client.Auth.CurrentUser?.Email;
+}
+
+public void SignOut()
+{
+    _client.Auth.SignOut();
+}
 }
