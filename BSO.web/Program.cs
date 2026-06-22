@@ -1,8 +1,10 @@
 using BSO.Infrastructure.Services;
 using BSO.Infrastructure.Repositories;
+using BSO.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<AuthService>();
 // ✅ Add Razor Pages
 builder.Services.AddRazorPages();
 
@@ -11,6 +13,10 @@ builder.Services.AddSingleton<SupabaseService>();
 
 // ✅ Register repository
 builder.Services.AddScoped<UserRepository>();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -25,6 +31,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

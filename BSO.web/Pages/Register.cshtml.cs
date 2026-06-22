@@ -24,9 +24,13 @@ public class RegisterModel : PageModel
         var success = await _supabase.SignUp(Email, Password);
 
         if (success)
+        {
             Message = "✅ Account created! Check your email to confirm your account.";
+        }
         else
-            Message = "❌ Error creating account. Try again.";
+        {
+            Message = "❌ Error creating account";
+        }
 
         return Page();
     }

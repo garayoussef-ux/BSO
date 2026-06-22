@@ -1,17 +1,65 @@
 ﻿@page
 @model IndexModel
 
-<div class="text-center">
-    <h1 class="mb-4">Welcome to BSO</h1>
+<div class="container">
 
-    <div class="alert alert-info">
-        @if (Model.Email != null)
-        {
-            <p>✅ Logged in as <strong>@Model.Email</strong></p>
-        }
-        else
-        {
-            <p>❌ You are not logged in</p>
-        }
+    <h1 class="mb-4">Dashboard 📊</h1>
+
+    <!-- ✅ Welcome -->
+    <div class="alert alert-success">
+        Welcome back, <strong>@Model.Email</strong> 👋
     </div>
+    <a asp-page="/CreateProject" class="btn btn-success mb-3">
+    + New Project
+</a>
+
+    <!-- ✅ Cards -->
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5>Total Projects</h5>
+                    <p class="display-6">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5>Tasks</h5>
+                    <p class="display-6">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5>Activity</h5>
+                    <p class="display-6">Active</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h3 class="mt-4">Your Projects</h3>
+
+@if (Model.Projects.Count == 0)
+{
+    <p>No projects yet</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var project in Model.Projects)
+        {
+            <li class="list-group-item">
+                @project.Name
+            </li>
+        }
+    </ul>
+}
+
 </div>

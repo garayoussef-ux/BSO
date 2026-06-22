@@ -25,9 +25,12 @@ public class LoginModel : PageModel
 
         if (!success)
         {
-            ErrorMessage = "Login failed";
+            ErrorMessage = "❌ Invalid login or email not confirmed";
             return Page();
         }
+
+        // ✅ Save session
+        HttpContext.Session.SetString("UserEmail", Email);
 
         return RedirectToPage("/Index");
     }

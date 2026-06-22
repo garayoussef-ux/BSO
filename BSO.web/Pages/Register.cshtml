@@ -5,37 +5,23 @@
     
     <div class="card shadow p-4" style="width: 400px; border-radius: 12px;">
         
-        <!-- Title -->
         <h3 class="text-center mb-3">Create Account 🚀</h3>
 
-        <!-- Subtitle -->
-        <p class="text-center text-muted mb-4">
-            Join BSO and start your journey
-        </p>
-
-        <!-- Form -->
         <form method="post">
 
             <!-- Email -->
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input 
-                    class="form-control" 
-                    asp-for="Email" 
-                    placeholder="Enter your email" />
+                <input class="form-control" asp-for="Email" placeholder="Enter your email" />
             </div>
 
             <!-- Password -->
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input 
-                    type="password" 
-                    class="form-control" 
-                    asp-for="Password" 
-                    placeholder="Enter your password" />
+                <input type="password" class="form-control" asp-for="Password" placeholder="Enter your password" />
             </div>
 
-            <!-- Submit button -->
+            <!-- Submit -->
             <button class="btn btn-success w-100">
                 Create Account
             </button>
@@ -50,10 +36,11 @@
             </div>
         }
 
-        <!-- Link to login -->
+        <!-- Link -->
         <p class="text-center mt-3">
-        Already have an account?
-        <a asp-page="/Login">Login</a>
-</p>
+            Already have an account?
+            <a asp-page="/Login">Login</a>
+        </p>
+
     </div>
 </div>

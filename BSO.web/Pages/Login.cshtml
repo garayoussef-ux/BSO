@@ -1,26 +1,44 @@
 @page
 @model LoginModel
 
-<div class="d-flex justify-content-center">
-    <div class="card p-4 shadow" style="width: 400px;">
-        <h3 class="text-center mb-3">Login</h3>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    
+    <div class="card shadow p-4" style="width: 400px; border-radius: 12px;">
+        
+        <h3 class="text-center mb-3">Login 🔐</h3>
 
         <form method="post">
+
+            <!-- Email -->
             <div class="mb-3">
-                <input class="form-control" asp-for="Email" placeholder="Email" />
+                <label class="form-label">Email</label>
+                <input class="form-control" asp-for="Email" placeholder="Enter your email" />
             </div>
 
+            <!-- Password -->
             <div class="mb-3">
-                <input type="password" class="form-control" asp-for="Password" placeholder="Password" />
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" asp-for="Password" placeholder="Enter your password" />
             </div>
 
+            <!-- Submit -->
             <button class="btn btn-primary w-100">Login</button>
+
         </form>
 
-        <p class="text-danger mt-2">@Model.ErrorMessage</p>
+        <!-- Error -->
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger mt-3 text-center">
+                @Model.ErrorMessage
+            </div>
+        }
+
+        <!-- Link -->
         <p class="text-center mt-3">
-    Don't have an account?
-    <a asp-page="/Register">Register</a>
-</p>
+            Don't have an account?
+            <a asp-page="/Register">Register</a>
+        </p>
+
     </div>
 </div>
