@@ -1,0 +1,25 @@
+@page
+@model EditProjectModel
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4" style="max-width:500px; margin:auto;">
+
+        <h3 class="mb-3 text-center">Edit Project</h3>
+
+        <form method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label>Project Name</label>
+                <input class="form-control" asp-for="Name" />
+            </div>
+
+            <button class="btn btn-primary w-100">Save</button>
+
+        </form>
+
+    </div>
+
+</div>

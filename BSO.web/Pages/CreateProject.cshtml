@@ -1,26 +1,21 @@
 @page
 @model CreateProjectModel
 
-<div class="container mt-5">
+<div class="d-flex justify-content-center">
 
-    <h2>Create New Project</h2>
+    <div class="card shadow p-4" style="width:400px;">
 
-    <form method="post">
+        <h4 class="text-center mb-3">Create Project</h4>
 
-        <div class="mb-3">
-            <label>Project Name</label>
-            <input class="form-control" asp-for="Name" />
-        </div>
+        <form method="post">
 
-        <button class="btn btn-primary">Create</button>
+            <input class="form-control mb-3" asp-for="Name" placeholder="Project name" />
 
-    </form>
+            <button class="btn btn-success w-100">Create</button>
 
-    @if (!string.IsNullOrEmpty(Model.Message))
-    {
-        <div class="alert alert-success mt-3">
-            @Model.Message
-        </div>
-    }
+        </form>
+
+    </div>
 
 </div>
+

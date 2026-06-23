@@ -8,9 +8,7 @@ public class IndexModel : PageModel
     private readonly SupabaseService _supabase;
 
     public string? Email { get; set; }
-
     public int ProjectsCount { get; set; }
-
     public List<Project> Projects { get; set; } = new();
 
     public IndexModel(SupabaseService supabase)
@@ -20,28 +18,23 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        var email = HttpContext.Session.GetString("UserEmail")?.ToLower();
-
-ProjectsCount = await _supabase.GetProjectsCount(email);
-Projects = await _supabase.GetProjects(email);
-
+        var email = HttpContext.Session.GetString("UserEmail");
 
         if (email == null)
-        {
             return RedirectToPage("/Login");
-        }
 
-        // ✅ normalize email (important!)
         email = email.ToLower();
 
         Email = email;
-
-        // ✅ get count
+        Projects = await _supabase.GetProjects(email);
         ProjectsCount = await _supabase.GetProjectsCount(email);
 
-        // ✅ get full list
-        Projects = await _supabase.GetProjects(email);
-
         return Page();
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+    {
+        await _supabase.DeleteProject(id);
+        return RedirectToPage();
     }
 }

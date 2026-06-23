@@ -15,28 +15,12 @@ public class CreateProjectModel : PageModel
     [BindProperty]
     public string Name { get; set; } = "";
 
-    public string Message { get; set; } = "";
-
-    public IActionResult OnGet()
-    {
-        var email = HttpContext.Session.GetString("UserEmail");
-
-        if (email == null)
-        {
-            return RedirectToPage("/Login");
-        }
-
-        return Page();
-    }
-
     public async Task<IActionResult> OnPostAsync()
     {
         var email = HttpContext.Session.GetString("UserEmail");
 
         if (email == null)
-        {
             return RedirectToPage("/Login");
-        }
 
         email = email.ToLower();
 
@@ -48,8 +32,6 @@ public class CreateProjectModel : PageModel
             UserEmail = email
         });
 
-        Message = "✅ Project created successfully!";
-
-        return Page();
+        return RedirectToPage("/Index");
     }
 }

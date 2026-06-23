@@ -14,44 +14,43 @@ public class SupabaseService
         var key = config["Supabase:AnonKey"];
 
         _client = new Supabase.Client(url, key);
-
-        // ✅ Initialize client
         _client.InitializeAsync().Wait();
     }
 
-    // ✅ Get raw client (used for inserts)
     public Supabase.Client GetClient()
     {
         return _client;
     }
 
-    // ✅ REGISTER
     public async Task<bool> SignUp(string email, string password)
     {
         var response = await _client.Auth.SignUp(email, password);
         return response?.User != null;
     }
 
-    // ✅ LOGIN
     public async Task<bool> SignIn(string email, string password)
     {
         var response = await _client.Auth.SignIn(email, password);
         return response?.User != null;
     }
 
-    // ✅ LOGOUT
     public void SignOut()
     {
         _client.Auth.SignOut();
     }
 
-    // ✅ GET CURRENT USER EMAIL
-    public string? GetUserEmail()
+    public async Task<List<Project>> GetProjects(string email)
     {
-        return _client.Auth.CurrentUser?.Email;
+        var result = await _client
+            .From<Project>()
+            .Filter("user_email",
+                Supabase.Postgrest.Constants.Operator.Equals,
+                email)
+            .Get();
+
+        return result.Models;
     }
 
-    // ✅ GET PROJECT COUNT (filtered by user)
     public async Task<int> GetProjectsCount(string email)
     {
         var result = await _client
@@ -64,16 +63,13 @@ public class SupabaseService
         return result.Models.Count;
     }
 
-    // ✅ GET ALL PROJECTS (filtered by user)
-    public async Task<List<Project>> GetProjects(string email)
+    public async Task DeleteProject(Guid id)
     {
-        var result = await _client
+        await _client
             .From<Project>()
-            .Filter("user_email",
+            .Filter("id",
                 Supabase.Postgrest.Constants.Operator.Equals,
-                email)
-            .Get();
-
-        return result.Models;
+                id.ToString())
+            .Delete();
     }
 }
